@@ -15,4 +15,14 @@
         android:layout_marginTop="60dp"
         android:textSize="30sp"
         />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListaMovil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtHome"
+        android:layout_marginTop="0dp"
+        tools:listitem="@layout/item_block" >
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 </RelativeLayout>

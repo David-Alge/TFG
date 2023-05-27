@@ -51,6 +51,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtEmail"
         />
+    <EditText
+        android:layout_width="match_parent"
+        android:hint="Address"
+        android:layout_margin="10dp"
+        android:id="@+id/txtAddres"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtPassword"
+        />
 
     <Button
         android:layout_width="match_parent"

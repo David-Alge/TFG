@@ -20,6 +20,8 @@ class InicioFragment : Fragment() {
     ): View? {
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         bottomNavigationView?.visibility = View.GONE
+
+
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.GONE
 

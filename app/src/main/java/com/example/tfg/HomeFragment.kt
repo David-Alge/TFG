@@ -30,6 +30,9 @@ class HomeFragment : Fragment() {
         bottomNavigationView?.visibility = View.VISIBLE
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.VISIBLE
+        val mainActivity = requireActivity() as MainActivity
+        val actionBarDrawerToggle = mainActivity.getDrawerToggle()
+        actionBarDrawerToggle?.setDrawerIndicatorEnabled(true)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
