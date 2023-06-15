@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        android:textColor="@color/black"
+        android:id="@+id/txtPerfil"
+        android:textAlignment="center"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp"
+        />
+
+    <ImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/txtPerfil"
+        android:src="@drawable/baseline_person_24"
+        android:textAlignment="center"
+        android:layout_marginBottom="40dp"
+        />
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btnTxtPerfil"
+        android:backgroundTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:text="Cambiar nombre de perfil"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btnFtoPerfil"
+        android:backgroundTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:text="Cambiar foto de perfil"
+        android:layout_below="@+id/btnTxtPerfil"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_margin="5dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btnCorreo"
+        android:backgroundTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/btnFtoPerfil"
+        android:text="Cambiar correo electronico"
+
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_margin="5dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btnContraseña"
+        android:backgroundTint="@color/black"
+        android:layout_below="@+id/btnCorreo"
+        android:text="Cambiar contraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_margin="5dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btnDireccion"
+        android:backgroundTint="@color/black"
+        android:text="Cambiar direccion"
+        android:layout_below="@+id/btnContraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
