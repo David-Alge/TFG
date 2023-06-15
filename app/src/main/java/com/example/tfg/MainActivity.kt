@@ -19,12 +19,14 @@ import com.example.tfg.databinding.FragmentBottomNameBinding
 import com.example.tfg.databinding.FragmentProfileBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     var bottom_navigation_view: BottomNavigationView? = null
     private var drawer_layout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var binding: ActivityMainBinding
+    private lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var taskViewModel: TaskViewModel
 
@@ -34,13 +36,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         val perfilFragment= supportFragmentManager.findFragmentByTag("ProfileFragment")
         val btnTxtPerfil = perfilFragment?.view?.findViewById<Button>(R.id.btnTxtPerfil)
 
-        btnTxtPerfil?.setOnClickListener {
-            Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show()
-        }
+
         taskViewModel.name.observe(this){
             val txtName =perfilFragment?.view?.findViewById<TextView>(R.id.name)
             txtName?.text = String.format("Perfil Name: %s", it)
@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         buttonExit.setOnClickListener {
+            FirebaseAuth.getInstance().signOut();
             supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, InicioFragment()).commit()
         }
@@ -102,13 +103,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_profile -> {
+            R.id.filt_comp -> {
                 Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_messages -> {
+            R.id.filt_pc -> {
                 Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_logout -> {
+            R.id.filt_movil -> {
+                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.filt_elec -> {
                 Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
             }
             else -> {

@@ -23,15 +23,15 @@
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"
         android:id="@+id/txtFirstname"
-        android:layout_above="@+id/txtSecondname"
+        android:layout_above="@+id/txtLastname"
         />
     <EditText
         android:layout_width="match_parent"
-        android:hint="Second Name"
+        android:hint="Last Name"
         android:layout_margin="10dp"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:id="@+id/txtSecondname"
+        android:id="@+id/txtLastname"
         android:layout_above="@+id/txtEmail"
         />
     <EditText
@@ -68,6 +68,16 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/black"
         android:text="Register"
+        android:layout_above="@id/btnCancel"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCancel"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/black"
+        android:text="Cancel"
         android:layout_alignParentBottom="true"
         />
 
