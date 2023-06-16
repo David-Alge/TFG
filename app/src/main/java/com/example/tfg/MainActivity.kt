@@ -3,20 +3,18 @@ package com.example.tfg
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.tfg.databinding.ActivityMainBinding
-import com.example.tfg.databinding.FragmentBottomNameBinding
-import com.example.tfg.databinding.FragmentProfileBinding
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var drawer_layout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var binding: ActivityMainBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+
 
     private lateinit var taskViewModel: TaskViewModel
 
@@ -36,9 +34,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         val perfilFragment= supportFragmentManager.findFragmentByTag("ProfileFragment")
-        val btnTxtPerfil = perfilFragment?.view?.findViewById<Button>(R.id.btnTxtPerfil)
 
 
         taskViewModel.name.observe(this){

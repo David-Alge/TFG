@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/purple_500"
+    android:layout_marginTop="30dp"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="15dp"
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Charles Widmore"
+        android:id="@+id/UName"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test@test.es"
+        android:id="@+id/UEmail"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

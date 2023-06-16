@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.DocumentReference
 
 
 class RegisterFragment : Fragment() {
@@ -64,18 +65,30 @@ class RegisterFragment : Fragment() {
                         val currentUser: FirebaseUser? = firebaseAuth.currentUser
                         if (currentUser != null) {
                              userId = currentUser.uid
+                            firebaseAuth.signOut();
                         }
-                        add["firstName"] = name.text.toString()
-                        add["lastName"] = lastname.text.toString()
-                        add["email"] = email.text.toString()
-                        add["password"] = password.text.toString()
-                        add["address"] = address.text.toString()
-                        add["Id"] = userId
-                        db.collection("Users").add(add)
-                        Toast.makeText(requireContext(), "New user created", Toast.LENGTH_LONG).show()
-                        val transaccion = requireActivity().supportFragmentManager.beginTransaction()
-                        transaccion.replace(R.id.mainContainer, InicioFragment())
-                        transaccion.commit()
+                        val userData = hashMapOf(
+                            "firstName" to name.text.toString(),
+                            "lastName" to lastname.text.toString(),
+                            "email" to email.text.toString(),
+                            "password" to password.text.toString(),
+                            "address" to address.text.toString(),
+                            "Id" to userId
+                        )
+                        val userDocumentRef: DocumentReference = db.collection("Users").document(userId)
+
+                        userDocumentRef.set(userData)
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), "New user created", Toast.LENGTH_LONG).show()
+                                val transaccion = requireActivity().supportFragmentManager.beginTransaction()
+                                transaccion.replace(R.id.mainContainer, InicioFragment())
+                                transaccion.commit()
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("register", "Error al crear el documento de usuario", e)
+                                Toast.makeText(requireContext(), "Error creating user", Toast.LENGTH_LONG).show()
+                            }
+
 
                     }else{
                         Log.e("register","fallo en creacion de usuario")
