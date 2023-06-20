@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -28,6 +29,7 @@ class HomeAdapter(private val productsList : ArrayList<Products>) : RecyclerView
 
         val userId =user.currentUser?.email
 
+
         val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
         val productID = productsList[holder.adapterPosition].Id
         val productRef = FirebaseFirestore.getInstance().collection("Products").document(productID)
@@ -41,6 +43,12 @@ class HomeAdapter(private val productsList : ArrayList<Products>) : RecyclerView
             Picasso.get().load(products.Img).into(holder.Imagen)
         } else {
             holder.Imagen.setImageResource(R.drawable.ic_android_black_24dp)
+        }
+
+        holder.cardView.setOnClickListener {
+            val context = holder.itemView.context
+            val item = productsList[position]
+            Toast.makeText(context, "Clic en la tarjeta: ${item.Name}", Toast.LENGTH_SHORT).show()
         }
 
         holder.btnAdd.setOnClickListener{
@@ -65,6 +73,7 @@ class HomeAdapter(private val productsList : ArrayList<Products>) : RecyclerView
     }
 
     public class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+        val cardView: CardView = itemView.findViewById(R.id.productCard)
         val Nombre : TextView = itemView.findViewById(R.id.Nombre)
         val Precio : TextView = itemView.findViewById(R.id.Precio)
         val Imagen : ImageView = itemView.findViewById(R.id.imagen)

@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         buttonExit.setOnClickListener {
             FirebaseAuth.getInstance().signOut();
             supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, InicioFragment()).commit()
+                .replace(R.id.mainContainer, LoginFragment()).commit()
         }
 
         bottom_navigation_view = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         bottom_navigation_view?.selectedItemId = R.id.action_home
-        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, InicioFragment(),"InicioFragment").commit()
+        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, LoginFragment(),"InicioFragment").commit()
     }
 
     fun changeUData(username: String, email: String) {

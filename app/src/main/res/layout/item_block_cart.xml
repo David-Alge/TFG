@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
     android:layout_margin="10dp"
-    android:id="@+id/cardmovie"
+    android:id="@+id/productCard_Cart"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout

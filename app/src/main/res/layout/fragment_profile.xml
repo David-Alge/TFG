@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Perfil"
+        android:text="Profile"
         android:textColor="@color/black"
         android:id="@+id/txtPerfil"
         android:textAlignment="center"
@@ -32,7 +32,7 @@
         android:backgroundTint="@color/black"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
-        android:text="Cambiar nombre de perfil"
+        android:text="change username"
         android:layout_height="wrap_content"/>
 
     <Button
@@ -42,7 +42,7 @@
         android:backgroundTint="@color/black"
         android:layout_width="match_parent"
         android:layout_below="@+id/btnTxtPerfil"
-        android:text="Cambiar correo electronico"
+        android:text="change email"
 
         android:layout_height="wrap_content"/>
     <Button
@@ -51,7 +51,7 @@
         android:id="@+id/btnContraseña"
         android:backgroundTint="@color/black"
         android:layout_below="@+id/btnCorreo"
-        android:text="Cambiar contraseña"
+        android:text="change password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
@@ -59,7 +59,7 @@
         android:layout_centerInParent="true"
         android:id="@+id/btnDireccion"
         android:backgroundTint="@color/black"
-        android:text="Cambiar direccion"
+        android:text="change address"
         android:layout_below="@+id/btnContraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

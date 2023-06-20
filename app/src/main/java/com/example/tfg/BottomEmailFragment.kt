@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.example.tfg.databinding.FragmentBottomEmailBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,7 +35,7 @@ class BottomEmailFragment : BottomSheetDialogFragment() {
             Toast.makeText(requireContext(), "Email Updated", Toast.LENGTH_SHORT).show()
             FirebaseAuth.getInstance().signOut();
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, InicioFragment()).commit()
+                .replace(R.id.mainContainer, LoginFragment()).commit()
             dismiss()
         }
     }

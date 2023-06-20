@@ -82,7 +82,7 @@ class RegisterFragment : Fragment() {
                                 Log.d("Firestore", "Documento agregado con éxito con ID: $userId")
                                 Toast.makeText(requireContext(), "New user created", Toast.LENGTH_LONG).show()
                                 val transaccion = requireActivity().supportFragmentManager.beginTransaction()
-                                transaccion.replace(R.id.mainContainer, InicioFragment())
+                                transaccion.replace(R.id.mainContainer, LoginFragment())
                                 transaccion.commit()
                                 clearCamps()
                             }
@@ -102,7 +102,7 @@ class RegisterFragment : Fragment() {
         }
         btnCancel.setOnClickListener {
             val transaccion = requireActivity().supportFragmentManager.beginTransaction()
-            transaccion.replace(R.id.mainContainer, InicioFragment())
+            transaccion.replace(R.id.mainContainer, LoginFragment())
             transaccion.commit()
         }
     }

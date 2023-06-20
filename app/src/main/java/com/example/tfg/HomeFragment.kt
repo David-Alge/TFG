@@ -78,11 +78,9 @@ class HomeFragment : Fragment() {
         val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
         imgbtnSalir?.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, InicioFragment()).commit()
+                .replace(R.id.mainContainer, LoginFragment()).commit()
         }
     }
-
-
     fun applyFilter(currentFilter: String) {
         productsArrayList.clear()
         Log.d("Home Fragment", "$currentFilter")
@@ -92,7 +90,6 @@ class HomeFragment : Fragment() {
                     Log.e("Home Fragment", error.message.toString())
                     return@addSnapshotListener
                 }
-
                 for (dc in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         val product = dc.document.toObject(Products::class.java)

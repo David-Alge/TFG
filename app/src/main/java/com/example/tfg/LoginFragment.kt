@@ -9,16 +9,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import com.example.tfg.databinding.ActivityMainBinding
-import com.example.tfg.databinding.FragmentInicioBinding
+import com.example.tfg.databinding.FragmentLoginBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-class InicioFragment : Fragment() {
-    private lateinit var binding: FragmentInicioBinding
+class LoginFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var email: EditText
     private lateinit var password: EditText
@@ -38,7 +37,7 @@ class InicioFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-        binding = FragmentInicioBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -91,6 +90,9 @@ class InicioFragment : Fragment() {
             activity?.let {
                 it.supportFragmentManager.beginTransaction().replace(R.id.mainContainer, RegisterFragment()).commit()
             }
+            binding.txtEmail.setText("")
+            binding.txtPassword.setText("")
+
         }
     }
 }
