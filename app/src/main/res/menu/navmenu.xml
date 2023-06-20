@@ -3,21 +3,29 @@
     <item android:title="Filtros">
         <menu>
             <item
+                android:id="@+id/filt_todo"
+                android:icon="@drawable/baseline_cached_24"
+                android:title="All" />
+            <item
                 android:id="@+id/filt_comp"
-                android:icon="@android:drawable/ic_menu_call"
-                android:title="Componentes" />
+                android:icon="@drawable/baseline_cable_24"
+                android:title="Components" />
             <item
                 android:id="@+id/filt_pc"
-                android:icon="@android:drawable/ic_menu_call"
-                android:title="Ordenadores" />
+                android:icon="@drawable/baseline_computer_24"
+                android:title="Computers" />
             <item
                 android:id="@+id/filt_movil"
-                android:icon="@android:drawable/ic_menu_call"
-                android:title="Moviles" />
+                android:icon="@drawable/baseline_phone_android_24"
+                android:title="Phones" />
             <item
                 android:id="@+id/filt_elec"
-                android:icon="@android:drawable/ic_menu_call"
-                android:title="Electrodomesticos" />
+                android:icon="@drawable/baseline_propane_24"
+                android:title="Appliance" />
+            <item
+                android:id="@+id/filt_comple"
+                android:icon="@drawable/baseline_sd_card_24"
+                android:title="Complements" />
         </menu>
     </item>
 

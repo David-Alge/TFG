@@ -20,17 +20,18 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
-    var bottom_navigation_view: BottomNavigationView? = null
+    private var bottom_navigation_view: BottomNavigationView? = null
     private var drawer_layout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var binding: ActivityMainBinding
-
-
+    private lateinit var nav_view: NavigationView
+    var currentFilter: String = ""
     private lateinit var taskViewModel: TaskViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val perfilFragment= supportFragmentManager.findFragmentByTag("ProfileFragment")
 
 
-        taskViewModel.name.observe(this){
+        taskViewModel.string.observe(this){
             val txtName =perfilFragment?.view?.findViewById<TextView>(R.id.name)
             txtName?.text = String.format("Perfil Name: %s", it)
         }
@@ -48,16 +49,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val buttonExit: ImageButton = findViewById(R.id.imgbtnSalir)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val nav_view = findViewById<NavigationView>(R.id.nav_view)
+        nav_view = findViewById<NavigationView>(R.id.nav_view)
+        changeUData("Nombre de usuario", "correo@example.com")
         drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer_layout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, 0, 0)
         drawer_layout?.addDrawerListener(toggle)
         toggle.syncState()
-        actionBarDrawerToggle = toggle
 
+        toolbar.setNavigationOnClickListener {
+            drawer_layout?.openDrawer(GravityCompat.START)
+        }
+
+        actionBarDrawerToggle = toggle
 
         nav_view.setNavigationItemSelectedListener(this)
 
@@ -86,10 +93,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         bottom_navigation_view?.selectedItemId = R.id.action_home
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, InicioFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, InicioFragment(),"InicioFragment").commit()
     }
+
+    fun changeUData(username: String, email: String) {
+        val headerView = nav_view.getHeaderView(0)
+
+        val UName = headerView.findViewById<TextView>(R.id.UName)
+        val UEmail = headerView.findViewById<TextView>(R.id.UEmail)
+
+        UName.text = username
+        UEmail.text = email
+    }
+
     fun getDrawerToggle(): ActionBarDrawerToggle? {
         return actionBarDrawerToggle
     }
@@ -100,25 +116,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val HomeFragment = supportFragmentManager.findFragmentByTag("HomeFragment") as HomeFragment?
         when (item.itemId) {
+            R.id.filt_todo -> {
+                currentFilter = ""
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Todos los componentes", Toast.LENGTH_SHORT).show()
+            }
             R.id.filt_comp -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                currentFilter = "Componente"
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_pc -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                currentFilter = "Ordenador"
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_movil -> {
-                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+                currentFilter = "Movil"
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_elec -> {
-                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+                currentFilter = "Electrodomestico"
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
             }
-            else -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+            R.id.filt_comple -> {
+                currentFilter = "Complemento"
+                HomeFragment?.applyFilter(currentFilter)
+                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
             }
         }
         drawer_layout?.closeDrawer(GravityCompat.START)
         return true
     }
-
 }

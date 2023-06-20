@@ -75,21 +75,21 @@ class RegisterFragment : Fragment() {
                             "address" to address.text.toString(),
                             "Id" to userId
                         )
-                        val userDocumentRef: DocumentReference = db.collection("Users").document(userId)
+                        val userDocumentRef: DocumentReference = db.collection("Users").document(email.text.toString())
 
                         userDocumentRef.set(userData)
                             .addOnSuccessListener {
+                                Log.d("Firestore", "Documento agregado con éxito con ID: $userId")
                                 Toast.makeText(requireContext(), "New user created", Toast.LENGTH_LONG).show()
                                 val transaccion = requireActivity().supportFragmentManager.beginTransaction()
                                 transaccion.replace(R.id.mainContainer, InicioFragment())
                                 transaccion.commit()
+                                clearCamps()
                             }
                             .addOnFailureListener { e ->
                                 Log.e("register", "Error al crear el documento de usuario", e)
                                 Toast.makeText(requireContext(), "Error creating user", Toast.LENGTH_LONG).show()
                             }
-
-
                     }else{
                         Log.e("register","fallo en creacion de usuario")
                         Toast.makeText(requireContext(), it.exception.toString(), Toast.LENGTH_LONG).show();
@@ -105,6 +105,13 @@ class RegisterFragment : Fragment() {
             transaccion.replace(R.id.mainContainer, InicioFragment())
             transaccion.commit()
         }
+    }
+    private fun clearCamps() {
+        email.setText("")
+        password.setText("")
+        name.setText("")
+        lastname.setText("")
+        address.setText("")
     }
 
 }

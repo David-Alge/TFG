@@ -6,11 +6,10 @@
     tools:context=".BottomEmailFragment"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nuevo Email"
+        android:text="New Email"
         android:textSize="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"/>

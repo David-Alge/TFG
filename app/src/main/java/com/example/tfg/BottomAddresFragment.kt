@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tfg.databinding.FragmentBottomAddresBinding
 import com.example.tfg.databinding.FragmentBottomEmailBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class BottomAddresFragment  : BottomSheetDialogFragment() {
@@ -20,9 +22,22 @@ class BottomAddresFragment  : BottomSheetDialogFragment() {
 
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity()
+        val db = FirebaseFirestore.getInstance()
+        val collection = db.collection("Users")
+
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+
         taskViewModel = ViewModelProvider(activity).get(TaskViewModel::class.java)
         binding.btnDireccion.setOnClickListener{
-            saveName()
+            val userId = currentUser?.email
+            val documento = collection.document(userId.toString())
+
+            taskViewModel.string.value = binding.address.text.toString()
+
+            documento.update("address", binding.address.text.toString())
+            Toast.makeText(requireContext(), "Addres Updated", Toast.LENGTH_SHORT).show()
+            dismiss()
         }
     }
 
@@ -33,14 +48,6 @@ class BottomAddresFragment  : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentBottomAddresBinding.inflate(inflater,container,false)
         return binding.root
-    }
-
-
-    private fun saveName() {
-        taskViewModel.name.value = binding.address.text.toString()
-        Toast.makeText(requireContext(), binding.address.text.toString(), Toast.LENGTH_SHORT).show()
-        dismiss()
-
     }
 
 }

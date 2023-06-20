@@ -8,27 +8,25 @@ import android.widget.Button
 
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.DocumentReference
 
-class ProductAdapter(private val productsList : ArrayList<Products>) : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.MyViewHolder {
+class HomeAdapter(private val productsList : ArrayList<Products>) : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MyViewHolder {
        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_block,parent,false)
-
         return MyViewHolder(itemView)
     }
 
 
-    override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeAdapter.MyViewHolder, position: Int) {
         val db = FirebaseFirestore.getInstance()
         val user = FirebaseAuth.getInstance()
 
-        val userId =user.currentUser?.uid
+        val userId =user.currentUser?.email
 
         val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
         val productID = productsList[holder.adapterPosition].Id
@@ -48,8 +46,10 @@ class ProductAdapter(private val productsList : ArrayList<Products>) : RecyclerV
         holder.btnAdd.setOnClickListener{
             productRef.get().addOnSuccessListener { document ->
                 if (document != null) {
+                    Log.d("Carrito","$userId")
                     val data = document.data
-                    println("producto: $data")
+                    Toast.makeText(holder.btnAdd.context, "Producto añadido al carrito", Toast.LENGTH_SHORT).show();
+
                     if (data != null) {
                         cartCollectionRef.add(data)
                     }

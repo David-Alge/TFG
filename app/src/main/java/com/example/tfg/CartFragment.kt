@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -35,7 +38,6 @@ class CartFragment : Fragment() {
         val mainActivity = requireActivity() as MainActivity
         val actionBarDrawerToggle = mainActivity.getDrawerToggle()
         actionBarDrawerToggle?.setDrawerIndicatorEnabled(false)
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,9 +61,48 @@ class CartFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, InicioFragment()).commit()
         }
+
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val removedProduct = productsArrayList.removeAt(position)
+                myAdapter.notifyItemRemoved(position)
+                DeleteItem(removedProduct.Name)
+            }
+        })
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
+
+    }
+    private fun DeleteItem(productName: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
+        collectionRef.whereEqualTo("Name", productName).get()
+            .addOnSuccessListener { querySnapshot ->
+                for (documentSnapshot in querySnapshot.documents) {
+                    val productId = documentSnapshot.id
+                    Log.d("Firestore", "ID del producto '$productName': $productId")
+                    val documentRef = collectionRef.document(productId)
+                    documentRef.delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(requireContext(), "Elemento eliminado: $productName", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore Error", "Error deleting document: ${e.message}")
+                        }
+                }
+            }
     }
     private fun EventChangeListener() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = FirebaseAuth.getInstance().currentUser?.email
         val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
 
         cartCollectionRef.get().addOnCompleteListener { task ->

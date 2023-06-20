@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,50 +17,79 @@
         android:textSize="30sp"
         />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:hint="First Name"
-        android:layout_margin="10dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtFirstnameLayout"
+        android:layout_above="@+id/txtLastnameLayout"
         android:layout_centerInParent="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Name">
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/txtFirstname"
-        android:layout_above="@+id/txtLastname"
-        />
-    <EditText
         android:layout_width="match_parent"
-        android:hint="Last Name"
-        android:layout_margin="10dp"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:id="@+id/txtLastname"
-        android:layout_above="@+id/txtEmail"
         />
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtLastnameLayout"
+        android:layout_above="@+id/txtEmailLayout"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:hint="Email"
-        android:layout_margin="10dp"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:id="@+id/txtEmail"
-        />
-    <EditText
+        android:hint="Last Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtLastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtEmailLayout"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:hint="Password"
-        android:layout_margin="10dp"
-        android:id="@+id/txtPassword"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEmail"
-        />
-    <EditText
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPasswordLayout"
         android:layout_width="match_parent"
-        android:hint="Address"
-        android:layout_margin="10dp"
-        android:id="@+id/txtAddres"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassword"
-        />
+        app:passwordToggleEnabled="true"
+        android:layout_below="@+id/txtEmailLayout"
+        android:hint="Password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtAddresLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtPasswordLayout"
+        android:hint="Address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtAddres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
