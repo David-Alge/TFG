@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
-
-
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recyclerView: RecyclerView
@@ -39,6 +37,7 @@ class HomeFragment : Fragment() {
         toolbar?.visibility = View.VISIBLE
         val mainActivity = requireActivity() as MainActivity
         val actionBarDrawerToggle = mainActivity.getDrawerToggle()
+
         actionBarDrawerToggle?.setDrawerIndicatorEnabled(true)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -69,7 +68,18 @@ class HomeFragment : Fragment() {
 
 
         productsArrayList = arrayListOf()
-        myAdapter = HomeAdapter(productsArrayList)
+        myAdapter = HomeAdapter(productsArrayList){product ->
+            activity?.let {
+                val fragment = ProductFragment()
+                val bundle = Bundle()
+                Log.i("Coin Clickado", product.toString())
+
+                bundle.putString("ID", product.Id)
+                fragment.arguments = bundle
+                it.supportFragmentManager.beginTransaction().addToBackStack(null)
+                    .replace(R.id.mainContainer, fragment).commit()
+            }
+        }
 
         recyclerView.adapter = myAdapter
 
@@ -90,6 +100,7 @@ class HomeFragment : Fragment() {
                     Log.e("Home Fragment", error.message.toString())
                     return@addSnapshotListener
                 }
+
                 for (dc in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         val product = dc.document.toObject(Products::class.java)
