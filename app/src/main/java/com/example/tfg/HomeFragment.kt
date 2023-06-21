@@ -83,9 +83,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+        applyFilter(currentFilter)
         recyclerView.adapter = myAdapter
 
-        applyFilter(currentFilter)
+
 
         val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
         imgbtnSalir?.setOnClickListener {
@@ -103,7 +104,6 @@ class HomeFragment : Fragment() {
                     Log.e("Home Fragment", error.message.toString())
                     return@addSnapshotListener
                 }
-
                 for (dc in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         val product = dc.document.toObject(Products::class.java)
