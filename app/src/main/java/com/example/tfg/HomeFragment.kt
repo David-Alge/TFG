@@ -24,14 +24,15 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var productsArrayList: ArrayList<Products>
     private lateinit var myAdapter: HomeAdapter
-    private lateinit var db:FirebaseFirestore
-    private lateinit var firebaseAuth:FirebaseAuth
-    private var currentFilter : String = ""
+    private lateinit var db: FirebaseFirestore
+    private lateinit var firebaseAuth: FirebaseAuth
+    private var currentFilter: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        val bottomNavigationView =
+            activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         bottomNavigationView?.visibility = View.VISIBLE
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.VISIBLE
@@ -42,6 +43,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseFirestore.getInstance()
@@ -68,7 +70,7 @@ class HomeFragment : Fragment() {
 
 
         productsArrayList = arrayListOf()
-        myAdapter = HomeAdapter(productsArrayList){product ->
+        myAdapter = HomeAdapter(productsArrayList) { product ->
             activity?.let {
                 val fragment = ProductFragment()
                 val bundle = Bundle()
@@ -91,6 +93,7 @@ class HomeFragment : Fragment() {
                 .replace(R.id.mainContainer, LoginFragment()).commit()
         }
     }
+
     fun applyFilter(currentFilter: String) {
         productsArrayList.clear()
         Log.d("Home Fragment", "$currentFilter")
@@ -104,13 +107,13 @@ class HomeFragment : Fragment() {
                 for (dc in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         val product = dc.document.toObject(Products::class.java)
-                            if (currentFilter == ""){
+                        if (currentFilter == "") {
+                            productsArrayList.add(product)
+                        } else {
+                            if (product.Category == currentFilter) {
                                 productsArrayList.add(product)
-                            }else{
-                                if (product.Category == currentFilter){
-                                    productsArrayList.add(product)
-                                }
                             }
+                        }
                     }
                 }
                 myAdapter.notifyDataSetChanged()

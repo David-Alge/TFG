@@ -45,10 +45,11 @@ class ProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val db = FirebaseFirestore.getInstance()
         val documentRef = db.collection("Products").document("$productID")
-        val user  = FirebaseAuth.getInstance()
-        val userId =user.currentUser?.email
+        val user = FirebaseAuth.getInstance()
+        val userId = user.currentUser?.email
 
-        val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
+        val cartCollectionRef = db.collection("Users").document(userId.toString())
+            .collection("Cart" + userId.toString())
         val productRef = FirebaseFirestore.getInstance().collection("Products").document(productID)
 
         imagen = binding.imgProduct
@@ -66,12 +67,16 @@ class ProductFragment : Fragment() {
             }
 
 
-        binding.btnAdd.setOnClickListener{
+        binding.btnAdd.setOnClickListener {
             productRef.get().addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d("Carrito","$userId")
+                    Log.d("Carrito", "$userId")
                     val data = document.data
-                    Toast.makeText(binding.btnAdd.context, "Product added to cart", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                        binding.btnAdd.context,
+                        "Product added to cart",
+                        Toast.LENGTH_SHORT
+                    ).show();
 
                     if (data != null) {
                         cartCollectionRef.add(data)
