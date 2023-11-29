@@ -9,6 +9,15 @@
     android:layout_height="match_parent"
     tools:context=".LoginFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to your store of Technology"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -17,8 +26,8 @@
         android:textColor="@color/black"
         android:id="@+id/txtLogin"
         android:textAlignment="center"
-        android:layout_marginTop="60dp"
-        android:textSize="30sp"
+        android:layout_marginTop="180dp"
+        android:textSize="50sp"
         />
 
 
@@ -27,6 +36,7 @@
         android:id="@+id/txtEmailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20sp"
 
         android:hint="Email">
 
@@ -45,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20sp"
         android:layout_below="@+id/txtEmailLayout"
         android:hint="Password">
 

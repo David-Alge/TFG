@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         nav_view = findViewById<NavigationView>(R.id.nav_view)
-        changeUData("Nombre de usuario", "correo@example.com")
         drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer_layout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 

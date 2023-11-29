@@ -33,11 +33,15 @@ class BottomAddresFragment  : BottomSheetDialogFragment() {
             val userId = currentUser?.email
             val documento = collection.document(userId.toString())
 
-            taskViewModel.string.value = binding.address.text.toString()
+            taskViewModel.string.value = binding.addressO.text.toString()
 
-            documento.update("address", binding.address.text.toString())
-            Toast.makeText(requireContext(), "Addres Updated", Toast.LENGTH_SHORT).show()
-            dismiss()
+            if (binding.addressO.text.toString().equals(binding.addressN.text.toString())){
+                documento.update("address", binding.addressO.text.toString())
+                Toast.makeText(requireContext(), "Addres Updated", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+
+
         }
     }
 

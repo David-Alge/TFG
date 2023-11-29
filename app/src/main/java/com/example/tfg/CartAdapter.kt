@@ -22,6 +22,9 @@ class CartAdapter(private val productsList : ArrayList<Products>) : RecyclerView
         holder.Categoria.text = products.Category
         holder.Nombre.text = products.Name
         holder.Precio.text = products.Price
+        holder.Charact1.text = products.Charact1
+        holder.Charact2.text = products.Charact2
+        holder.Charact3.text = products.Charact3
 
         if (products.Img.isNotEmpty()) {
             Picasso.get().load(products.Img).into(holder.Imagen)
@@ -38,6 +41,9 @@ class CartAdapter(private val productsList : ArrayList<Products>) : RecyclerView
         val Precio : TextView = itemView.findViewById(R.id.Precio)
         val Imagen : ImageView = itemView.findViewById(R.id.imagen)
         val Categoria : TextView = itemView.findViewById(R.id.Categoria)
+        val Charact1: TextView = itemView.findViewById(R.id.Charact1)
+        val Charact2: TextView = itemView.findViewById(R.id.Charact2)
+        val Charact3: TextView = itemView.findViewById(R.id.Charact3)
     }
 
 }

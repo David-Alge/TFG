@@ -28,16 +28,18 @@ class BottomPasswordFragment : BottomSheetDialogFragment() {
         binding.btnContrasena.setOnClickListener{
             val userId = currentUser?.email
             val documento = collection.document(userId.toString())
+            taskViewModel.string.value = binding.passwordO.text.toString()
 
-            taskViewModel.string.value = binding.password.text.toString()
+            if (binding.passwordC.text.toString().equals(binding.passwordN.text.toString())){
+                documento.update("password", binding.passwordO.text.toString())
+                currentUser?.updatePassword(binding.passwordO.text.toString())
+                Toast.makeText(requireContext(), "Password Updated", Toast.LENGTH_SHORT).show()
+                dismiss()
+                FirebaseAuth.getInstance().signOut();
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, LoginFragment()).commit()
+            }
 
-            documento.update("password", binding.password.text.toString())
-            currentUser?.updatePassword(binding.password.text.toString())
-            Toast.makeText(requireContext(), "Password Updated", Toast.LENGTH_SHORT).show()
-            dismiss()
-            FirebaseAuth.getInstance().signOut();
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, LoginFragment()).commit()
         }
     }
 

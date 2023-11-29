@@ -31,7 +31,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginTop="14dp"
-                        android:text="Tienda"
+                        android:text="Store"
                         android:textColor="#FFFFFF" />
 
                     <ImageButton

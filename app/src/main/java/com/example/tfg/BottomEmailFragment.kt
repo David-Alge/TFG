@@ -30,13 +30,16 @@ class BottomEmailFragment : BottomSheetDialogFragment() {
             val documento = collection.document(userId.toString())
 
             taskViewModel.string.value = binding.email.text.toString()
-            currentUser?.updateEmail(binding.email.text.toString())
-            documento.update("email", binding.email.text.toString())
-            Toast.makeText(requireContext(), "Email Updated", Toast.LENGTH_SHORT).show()
-            FirebaseAuth.getInstance().signOut();
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, LoginFragment()).commit()
-            dismiss()
+            if (binding.email.text.toString().equals(binding.email2.text.toString()) ){
+                currentUser?.updateEmail(binding.email.text.toString())
+                documento.update("email", binding.email.text.toString())
+                Toast.makeText(requireContext(), "Email Updated", Toast.LENGTH_SHORT).show()
+                FirebaseAuth.getInstance().signOut();
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, LoginFragment()).commit()
+                dismiss()
+            }
+
         }
     }
     override fun onCreateView(

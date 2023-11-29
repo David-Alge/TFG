@@ -21,6 +21,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtFirstnameLayout"
         android:layout_above="@+id/txtLastnameLayout"
+        android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name">
@@ -35,7 +36,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLastnameLayout"
         android:layout_above="@+id/txtEmailLayout"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name">
@@ -49,7 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtEmailLayout"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email">
@@ -64,7 +65,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtPasswordLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20sp"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
         android:layout_below="@+id/txtEmailLayout"
@@ -81,7 +82,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtAddresLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20sp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtPasswordLayout"
         android:hint="Address">
