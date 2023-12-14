@@ -58,14 +58,8 @@ class HomeFragment : Fragment() {
         val collection = db.collection("Users")
         val documento = collection.document(documentId.toString())
 
-        documento.get()
-            .addOnSuccessListener { snapshot ->
-                if (snapshot.exists()) {
-                    val valorFirst = snapshot.getString("firstName")
-                    val valorEmail = snapshot.getString("email")
-                    mainActivity.changeUData("${valorFirst}", "${valorEmail}")
-                }
-            }
+
+
 
 
 
@@ -74,7 +68,6 @@ class HomeFragment : Fragment() {
             activity?.let {
                 val fragment = ProductFragment()
                 val bundle = Bundle()
-                Log.i("Coin Clickado", product.toString())
 
                 bundle.putString("ID", product.Id)
                 fragment.arguments = bundle

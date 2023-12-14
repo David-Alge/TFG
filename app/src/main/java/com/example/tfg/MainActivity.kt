@@ -95,15 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction().replace(R.id.mainContainer, LoginFragment(),"InicioFragment").commit()
     }
 
-    fun changeUData(username: String, email: String) {
-        val headerView = nav_view.getHeaderView(0)
 
-        val UName = headerView.findViewById<TextView>(R.id.UName)
-        val UEmail = headerView.findViewById<TextView>(R.id.UEmail)
-
-        UName.text = username
-        UEmail.text = email
-    }
 
     fun getDrawerToggle(): ActionBarDrawerToggle? {
         return actionBarDrawerToggle
@@ -120,32 +112,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.filt_todo -> {
                 currentFilter = ""
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Todos los componentes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "All components", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_comp -> {
-                currentFilter = "Componente"
+                currentFilter = "Component"
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Searching $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_pc -> {
-                currentFilter = "Ordenador"
+                currentFilter = "Computer"
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Searching $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_movil -> {
-                currentFilter = "Movil"
+                currentFilter = "Phone"
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Searching $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_elec -> {
-                currentFilter = "Electrodomestico"
+                currentFilter = "Appliance"
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Searching $currentFilter", Toast.LENGTH_SHORT).show()
             }
             R.id.filt_comple -> {
-                currentFilter = "Complemento"
+                currentFilter = "Component"
                 HomeFragment?.applyFilter(currentFilter)
-                Toast.makeText(this, "Buscando $currentFilter", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Searching $currentFilter", Toast.LENGTH_SHORT).show()
             }
         }
         drawer_layout?.closeDrawer(GravityCompat.START)

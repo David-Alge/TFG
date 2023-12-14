@@ -1,5 +1,6 @@
 package com.example.tfg
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +28,7 @@ class CartFragment : Fragment() {
     private lateinit var productsArrayList: ArrayList<Products>
     private lateinit var myAdapter: CartAdapter
     private lateinit var db:FirebaseFirestore
+    private lateinit var btnEmpty:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +47,7 @@ class CartFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         recyclerView = view.findViewById<RecyclerView>(R.id.ListaProductos)
         txtEmpty = view.findViewById<TextView>(R.id.txtEmpty)
+        btnEmpty = view.findViewById<Button>(R.id.btnEmptyCart)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
 
@@ -59,6 +63,10 @@ class CartFragment : Fragment() {
         imgbtnSalir?.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, LoginFragment()).commit()
+        }
+        btnEmpty?.setOnClickListener {
+            deleteAllItems()
+
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -81,6 +89,33 @@ class CartFragment : Fragment() {
 
 
     }
+    private fun deleteAllItems() {
+        val userId = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
+
+        collectionRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (documentSnapshot in querySnapshot.documents) {
+                    val productId = documentSnapshot.id
+                    val documentRef = collectionRef.document(productId)
+                    documentRef.delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "All elements have been eliminated",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            myAdapter.notifyDataSetChanged()
+                            productsArrayList.clear()
+
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore Error", "Error deleting document: ${e.message}")
+                        }
+                }
+                requireView().invalidate()
+            }
+    }
     private fun DeleteItem(productName: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.email.toString()
         val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
@@ -92,7 +127,7 @@ class CartFragment : Fragment() {
                     val documentRef = collectionRef.document(productId)
                     documentRef.delete()
                         .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Elemento eliminado: $productName", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Element eliminated: $productName", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
                             Log.e("Firestore Error", "Error deleting document: ${e.message}")
@@ -100,6 +135,9 @@ class CartFragment : Fragment() {
                 }
             }
     }
+
+
+
     private fun EventChangeListener() {
         val userId = FirebaseAuth.getInstance().currentUser?.email
         val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())

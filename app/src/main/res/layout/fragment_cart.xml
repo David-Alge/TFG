@@ -24,19 +24,39 @@
         android:layout_below="@+id/txtCart"
         android:textAlignment="center"
         />
+
+    <LinearLayout
+        android:id="@+id/buttonsLinear"
+        android:layout_below="@+id/txtEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <Button
         android:text="Empty"
         android:layout_marginTop="20sp"
-        android:id="@+id/emptyCart"
+        android:layout_marginLeft="15sp"
+
+        android:id="@+id/btnEmptyCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtCart"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+        <Button
+            android:text="Buy"
+            android:layout_marginTop="20sp"
+            android:id="@+id/buyCart"
+            android:layout_marginLeft="200sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtCart"/>
+    </LinearLayout>
+
+
+<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ListaProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/emptyCart"
+        android:layout_below="@+id/buttonsLinear"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="50dp"
         tools:listitem="@layout/item_block_cart" >

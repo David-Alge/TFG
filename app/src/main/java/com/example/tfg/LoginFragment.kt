@@ -59,11 +59,8 @@ class LoginFragment : Fragment() {
                         val userDocumentRef: DocumentReference = db.collection("Users").document(email.text.trim().toString())
 
                         userDocumentRef.get().addOnSuccessListener { snapshot ->
-                            userEmail = snapshot.getString("email").toString()
-                            userName = snapshot.getString("firstName").toString()
-                            Log.d("DatosUser", "$userName, $userEmail")
 
-                            mainActivity?.changeUData(userEmail, userName)
+
                             activity?.let {
                                 it.supportFragmentManager.beginTransaction()
                                     .replace(R.id.mainContainer, HomeFragment(), "HomeFragment")

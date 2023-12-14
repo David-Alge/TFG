@@ -23,6 +23,9 @@ class ProductFragment : Fragment() {
     private lateinit var productName: TextView
     private lateinit var precio: TextView
     private lateinit var category: TextView
+    private lateinit var charact1: TextView
+    private lateinit var charact2: TextView
+    private lateinit var charact3: TextView
     private lateinit var productID: String
 
     override fun onCreateView(
@@ -56,6 +59,12 @@ class ProductFragment : Fragment() {
         productName = binding.nameProduct
         precio = binding.priceProduct
         category = binding.categoryProduct
+        charact1 = binding.charact1Product
+        charact2 = binding.charact2Product
+        charact3 = binding.charact3Product
+
+
+
 
 
         documentRef.get()
@@ -64,6 +73,10 @@ class ProductFragment : Fragment() {
                 Picasso.get().load(documentSnapshot.getString("Img")).into(imagen)
                 precio.setText(documentSnapshot.getString("Price"))
                 category.setText(documentSnapshot.getString("Category"))
+                charact1.setText(documentSnapshot.getString("Charact1"))
+                charact2.setText(documentSnapshot.getString("Charact2"))
+                charact3.setText(documentSnapshot.getString("Charact3"))
+
             }
 
 
