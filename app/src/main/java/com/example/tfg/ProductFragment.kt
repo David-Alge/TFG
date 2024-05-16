@@ -63,10 +63,6 @@ class ProductFragment : Fragment() {
         charact2 = binding.charact2Product
         charact3 = binding.charact3Product
 
-
-
-
-
         documentRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 productName.setText(documentSnapshot.getString("Name"))
@@ -76,7 +72,6 @@ class ProductFragment : Fragment() {
                 charact1.setText(documentSnapshot.getString("Charact1"))
                 charact2.setText(documentSnapshot.getString("Charact2"))
                 charact3.setText(documentSnapshot.getString("Charact3"))
-
             }
 
 
@@ -98,5 +93,4 @@ class ProductFragment : Fragment() {
             }
         }
     }
-
 }

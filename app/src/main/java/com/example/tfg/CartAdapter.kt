@@ -1,5 +1,6 @@
 package com.example.tfg
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,10 @@ import com.squareup.picasso.Picasso
 class CartAdapter(private val productsList : ArrayList<Products>) : RecyclerView.Adapter<CartAdapter.MyViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_block_cart,parent,false)
-
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         val products : Products = productsList[position]
         holder.Categoria.text = products.Category
         holder.Nombre.text = products.Name
@@ -26,12 +25,15 @@ class CartAdapter(private val productsList : ArrayList<Products>) : RecyclerView
         holder.Charact2.text = products.Charact2
         holder.Charact3.text = products.Charact3
 
+
+
         if (products.Img.isNotEmpty()) {
             Picasso.get().load(products.Img).into(holder.Imagen)
         } else {
             holder.Imagen.setImageResource(R.drawable.ic_android_black_24dp)
         }
     }
+
 
     override fun getItemCount(): Int {
         return productsList.size

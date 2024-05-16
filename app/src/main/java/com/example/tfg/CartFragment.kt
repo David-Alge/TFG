@@ -29,7 +29,8 @@ class CartFragment : Fragment() {
     private lateinit var myAdapter: CartAdapter
     private lateinit var db:FirebaseFirestore
     private lateinit var btnEmpty:Button
-
+    private lateinit var btnBuy:Button
+    private lateinit var txtTotal: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,26 +48,36 @@ class CartFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         recyclerView = view.findViewById<RecyclerView>(R.id.ListaProductos)
         txtEmpty = view.findViewById<TextView>(R.id.txtEmpty)
+        txtTotal = view.findViewById<TextView>(R.id.txtTotal)
         btnEmpty = view.findViewById<Button>(R.id.btnEmptyCart)
+        btnBuy = view.findViewById<Button>(R.id.btnBuy)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-
-
         productsArrayList = arrayListOf()
         myAdapter = CartAdapter(productsArrayList)
-
         recyclerView.adapter = myAdapter
-
         EventChangeListener()
+
 
         val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
         imgbtnSalir?.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, LoginFragment()).commit()
         }
+
         btnEmpty?.setOnClickListener {
             deleteAllItems()
 
+
+            txtTotal.text="Total:0€"
+
+        }
+
+        btnBuy?.setOnClickListener {
+            deleteAllItems()
+
+
+            txtTotal.text="Total:0€"
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -100,13 +111,12 @@ class CartFragment : Fragment() {
                     val documentRef = collectionRef.document(productId)
                     documentRef.delete()
                         .addOnSuccessListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "All elements have been eliminated",
-                                Toast.LENGTH_SHORT
+                            Toast.makeText(requireContext(),
+                                "All elements have been eliminated", Toast.LENGTH_SHORT
                             ).show()
-                            myAdapter.notifyDataSetChanged()
                             productsArrayList.clear()
+                            myAdapter.notifyDataSetChanged()
+                            txtTotal.text = "Total: 0€"
 
                         }
                         .addOnFailureListener { e ->
@@ -136,6 +146,17 @@ class CartFragment : Fragment() {
             }
     }
 
+    fun sumarPrecios():Int {
+        var suma = 0
+        for (product in productsArrayList) {
+            val precioString = product.Price
+            val precioNumerico = precioString.substring(0, precioString.length - 1)
+            suma += precioNumerico.toInt()
+
+        }
+        Log.d("Firestore", "suma del carrito '$suma'")
+        return suma
+    }
 
 
     private fun EventChangeListener() {
@@ -160,7 +181,11 @@ class CartFragment : Fragment() {
                                 productsArrayList.add(product)
                             }
                         }
+
+
                         myAdapter.notifyDataSetChanged()
+                        txtTotal.text="Total: "+sumarPrecios().toString()+"€"
+
                     }
                 } else {
                     recyclerView.visibility = View.GONE
@@ -168,6 +193,7 @@ class CartFragment : Fragment() {
                 }
             }
         }
+
     }
 
 }

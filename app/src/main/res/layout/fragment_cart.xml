@@ -28,27 +28,39 @@
     <LinearLayout
         android:id="@+id/buttonsLinear"
         android:layout_below="@+id/txtEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    <Button
-        android:text="Empty"
-        android:layout_marginTop="20sp"
-        android:layout_marginLeft="15sp"
-
-        android:id="@+id/btnEmptyCart"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtCart"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:text="Empty"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="10sp"
+            android:id="@+id/btnEmptyCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_marginTop="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20sp"
+            android:text="Total:"
+            android:textSize="20sp"
+            android:id="@+id/txtTotal"
+            android:layout_below="@+id/txtCart" />
 
         <Button
             android:text="Buy"
             android:layout_marginTop="20sp"
-            android:id="@+id/buyCart"
-            android:layout_marginLeft="200sp"
-            android:layout_width="wrap_content"
+            android:layout_marginRight="10sp"
+            android:id="@+id/btnBuy"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtCart"/>
+            android:layout_weight="1" />
+
     </LinearLayout>
 
 
