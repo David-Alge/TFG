@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:layout_margin="10dp"
+    android:id="@+id/productCard_Cart"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/idUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IdUser"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/lastNameUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LastNameUser"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/nombreUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/emailUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EmailUser"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/addressUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AddressUser"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

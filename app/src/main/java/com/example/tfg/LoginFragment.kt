@@ -53,6 +53,7 @@ class LoginFragment : Fragment() {
             email = binding.txtEmail
             password = binding.txtPassword
             if (email.text.isNotEmpty() && password.text.isNotEmpty()) {
+
                 firebaseAuth.signInWithEmailAndPassword(email.text.trim().toString(), password.text.trim().toString()).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         userId = currentUser?.uid.toString()
@@ -62,10 +63,18 @@ class LoginFragment : Fragment() {
 
 
                             activity?.let {
-                                it.supportFragmentManager.beginTransaction()
-                                    .replace(R.id.mainContainer, HomeFragment(), "HomeFragment")
-                                    .addToBackStack("HomeFragment")
-                                    .commit()
+                                if (email.text.trim().toString().contains("@admin.com")) {
+                                    it.supportFragmentManager.beginTransaction()
+                                        .replace(R.id.mainContainer, AdminFragment(), "AdminFragment")
+                                        .addToBackStack("AdminFragment")
+                                        .commit()
+                                }else{
+                                    it.supportFragmentManager.beginTransaction()
+                                        .replace(R.id.mainContainer, HomeFragment(), "HomeFragment")
+                                        .addToBackStack("HomeFragment")
+                                        .commit()
+                                }
+
                             }
                             email.setText("")
                             password.setText("")

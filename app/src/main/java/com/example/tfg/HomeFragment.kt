@@ -58,11 +58,6 @@ class HomeFragment : Fragment() {
         val collection = db.collection("Users")
         val documento = collection.document(documentId.toString())
 
-
-
-
-
-
         productsArrayList = arrayListOf()
         myAdapter = HomeAdapter(productsArrayList) { product ->
             activity?.let {
@@ -78,8 +73,6 @@ class HomeFragment : Fragment() {
 
         applyFilter(currentFilter)
         recyclerView.adapter = myAdapter
-
-
 
         val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
         imgbtnSalir?.setOnClickListener {

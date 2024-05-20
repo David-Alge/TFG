@@ -67,16 +67,11 @@ class CartFragment : Fragment() {
 
         btnEmpty?.setOnClickListener {
             deleteAllItems()
-
-
             txtTotal.text="Total:0€"
-
         }
 
         btnBuy?.setOnClickListener {
             deleteAllItems()
-
-
             txtTotal.text="Total:0€"
         }
 
