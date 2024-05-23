@@ -5,9 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminFragment">
-
+<LinearLayout
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:text="Users"
         android:textColor="@color/black"
@@ -15,14 +19,25 @@
         android:textAlignment="center"
         android:layout_marginTop="60dp"
         android:textSize="30sp"
+        android:layout_marginLeft="100sp"
         />
+    <Button
+        android:layout_marginTop="60dp"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/addUserbtn"
+        />
+    </LinearLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ListaUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/txtUsers"
+        android:layout_below="@+id/title"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="50dp"
+
         tools:listitem="@layout/item_block_admin" >
     </androidx.recyclerview.widget.RecyclerView>
 

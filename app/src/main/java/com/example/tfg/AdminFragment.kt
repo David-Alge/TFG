@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,9 +37,7 @@ class AdminFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Inicializar el Toolbar
-        val bottomNavigationView =
-            activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        bottomNavigationView?.visibility = View.VISIBLE
+
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.VISIBLE
         val mainActivity = requireActivity() as MainActivity
@@ -65,6 +64,21 @@ class AdminFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, LoginFragment()).commit()
         }
+
+        val addbtn = binding.addUserbtn
+        addbtn?.setOnClickListener{
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, AddUserFragment()).commit()
+        }
+
+        val deletebtn = view?.findViewById<Button>(R.id.btndeleteUser)
+
+        deletebtn?.setOnClickListener{
+            deleteuser()
+        }
+    }
+
+    private fun deleteuser() {
     }
 
     private fun EventChangeListener() {
