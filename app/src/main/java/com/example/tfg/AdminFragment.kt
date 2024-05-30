@@ -6,13 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tfg.databinding.FragmentAdminBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -71,14 +69,10 @@ class AdminFragment : Fragment() {
                 .replace(R.id.mainContainer, AddUserFragment()).commit()
         }
 
-        val deletebtn = view?.findViewById<Button>(R.id.btndeleteUser)
-
-        deletebtn?.setOnClickListener{
-            deleteuser()
-        }
     }
 
     private fun deleteuser() {
+
     }
 
     private fun EventChangeListener() {

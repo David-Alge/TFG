@@ -43,7 +43,7 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Products) {
+        fun bind(item: Products) { 
             val cardView: CardView = itemView.findViewById(R.id.productCard)
             val Nombre: TextView = itemView.findViewById(R.id.Nombre)
             val Precio: TextView = itemView.findViewById(R.id.Precio)
