@@ -26,6 +26,7 @@
         android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:layout_marginRight="30dp"
         android:id="@+id/addUserbtn"
         />
     </LinearLayout>
@@ -37,7 +38,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/title"
         android:layout_marginTop="0dp"
-
         tools:listitem="@layout/item_block_admin" >
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -32,10 +32,7 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
 
 
     override fun onBindViewHolder(holder: HomeAdapter.MyViewHolder, position: Int) {
-
         holder.bind(productsList[position])
-
-
     }
 
     override fun getItemCount(): Int {
@@ -85,7 +82,6 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
                         val data = document.data
                         Toast.makeText(btnAdd.context, "Product added to cart", Toast.LENGTH_SHORT)
                             .show();
-
                         if (data != null) {
                             cartCollectionRef.add(data)
                         }
@@ -96,8 +92,5 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
                 onClick(item)
             }
         }
-
-
     }
-
 }

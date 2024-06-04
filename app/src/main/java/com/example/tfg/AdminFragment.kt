@@ -6,15 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tfg.databinding.FragmentAdminBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminFragment : Fragment() {
+
     private lateinit var toolbar: Toolbar
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentAdminBinding
@@ -50,7 +53,18 @@ class AdminFragment : Fragment() {
         recyclerView = binding.ListaUsers
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-        myAdapter = AdminAdapter(usersArrayList)
+        myAdapter = AdminAdapter(usersArrayList) {user ->
+            activity?.let {
+                val fragment = UserFragment()
+                val bundle = Bundle()
+
+                bundle.putString("ID", user.Id)
+                fragment.arguments = bundle
+                it.supportFragmentManager.beginTransaction().addToBackStack(null)
+                    .replace(R.id.mainContainer, fragment).commit()
+
+            }
+        }
         recyclerView.adapter = myAdapter
 
         // Escuchar cambios en Firestore
@@ -69,11 +83,12 @@ class AdminFragment : Fragment() {
                 .replace(R.id.mainContainer, AddUserFragment()).commit()
         }
 
+
+
+
     }
 
-    private fun deleteuser() {
 
-    }
 
     private fun EventChangeListener() {
         val userCollectionRef = db.collection("Users")

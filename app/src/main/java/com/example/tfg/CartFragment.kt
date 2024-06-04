@@ -176,8 +176,6 @@ class CartFragment : Fragment() {
                                 productsArrayList.add(product)
                             }
                         }
-
-
                         myAdapter.notifyDataSetChanged()
                         txtTotal.text="Total: "+sumarPrecios().toString()+"€"
 
