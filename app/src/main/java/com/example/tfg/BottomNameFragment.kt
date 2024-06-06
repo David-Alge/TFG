@@ -28,7 +28,7 @@ class BottomNameFragment : BottomSheetDialogFragment() {
 
             taskViewModel = ViewModelProvider(activity).get(TaskViewModel::class.java)
             binding.btnnuevoNombre.setOnClickListener{
-                val userId = currentUser?.email
+                val userId = currentUser?.uid
                 val documento = collection.document(userId.toString())
 
                 taskViewModel.string.value = binding.name.text.toString()

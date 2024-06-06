@@ -26,7 +26,7 @@ class BottomPasswordFragment : BottomSheetDialogFragment() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val currentUser = firebaseAuth.currentUser
         binding.btnContrasena.setOnClickListener{
-            val userId = currentUser?.email
+            val userId = currentUser?.uid
             val documento = collection.document(userId.toString())
             taskViewModel.string.value = binding.passwordO.text.toString()
 

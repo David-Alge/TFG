@@ -26,7 +26,7 @@ class BottomEmailFragment : BottomSheetDialogFragment() {
 
         taskViewModel = ViewModelProvider(activity).get(TaskViewModel::class.java)
         binding.btnEmail.setOnClickListener{
-            val userId = currentUser?.email
+            val userId = currentUser?.uid
             val documento = collection.document(userId.toString())
 
             taskViewModel.string.value = binding.email.text.toString()

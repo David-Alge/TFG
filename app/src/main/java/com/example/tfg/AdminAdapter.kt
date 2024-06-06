@@ -52,7 +52,6 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
                 val userRef = FirebaseFirestore.getInstance().collection("Users").document(user.Id)
                 val auth = FirebaseAuth.getInstance()
                 userRef.delete().addOnSuccessListener {
-
                     Toast.makeText(
                         deletebtn.context,
                         "User ${user.email} deleted",
