@@ -75,7 +75,7 @@ class RegisterFragment : Fragment() {
                             "address" to address.text.toString(),
                             "Id" to userId
                         )
-                        val userDocumentRef: DocumentReference = db.collection("Users").document(email.text.toString())
+                        val userDocumentRef: DocumentReference = db.collection("Users").document(userId)
 
                         userDocumentRef.set(userData)
                             .addOnSuccessListener {

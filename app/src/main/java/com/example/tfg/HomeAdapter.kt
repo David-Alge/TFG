@@ -54,7 +54,7 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
             val db = FirebaseFirestore.getInstance()
             val user = FirebaseAuth.getInstance()
 
-            val userId = user.currentUser?.email
+            val userId = user.currentUser?.uid
             val cartCollectionRef = db.collection("Users").document(userId.toString())
                 .collection("Cart" + userId.toString())
             val productID = productsList[adapterPosition].Id

@@ -96,7 +96,7 @@ class CartFragment : Fragment() {
 
     }
     private fun deleteAllItems() {
-        val userId = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
 
         collectionRef.get()
@@ -122,7 +122,7 @@ class CartFragment : Fragment() {
             }
     }
     private fun DeleteItem(productName: String) {
-        val userId = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
         collectionRef.whereEqualTo("Name", productName).get()
             .addOnSuccessListener { querySnapshot ->
@@ -155,7 +155,7 @@ class CartFragment : Fragment() {
 
 
     private fun EventChangeListener() {
-        val userId = FirebaseAuth.getInstance().currentUser?.email
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
         val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
 
         cartCollectionRef.get().addOnCompleteListener { task ->

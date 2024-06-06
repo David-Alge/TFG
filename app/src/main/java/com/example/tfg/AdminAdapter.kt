@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users) -> Unit)
@@ -49,7 +50,9 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
 
             deletebtn.setOnClickListener {
                 val userRef = FirebaseFirestore.getInstance().collection("Users").document(user.Id)
+                val auth = FirebaseAuth.getInstance()
                 userRef.delete().addOnSuccessListener {
+
                     Toast.makeText(
                         deletebtn.context,
                         "User ${user.email} deleted",

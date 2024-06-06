@@ -15,6 +15,7 @@ import com.example.tfg.databinding.FragmentAdminBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.math.log
 
 class AdminFragment : Fragment() {
 
@@ -24,11 +25,14 @@ class AdminFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var usersArrayList: ArrayList<Users>
     private lateinit var myAdapter: AdminAdapter
+    private lateinit var userID: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflar el diseño del fragmento
         binding = FragmentAdminBinding.inflate(inflater, container, false)
         return binding.root
@@ -58,7 +62,8 @@ class AdminFragment : Fragment() {
                 val fragment = UserFragment()
                 val bundle = Bundle()
 
-                bundle.putString("ID", user.Id)
+                bundle.putString("id", user.Id)
+                Log.d("id", user.Id)
                 fragment.arguments = bundle
                 it.supportFragmentManager.beginTransaction().addToBackStack(null)
                     .replace(R.id.mainContainer, fragment).commit()
@@ -82,14 +87,7 @@ class AdminFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, AddUserFragment()).commit()
         }
-
-
-
-
     }
-
-
-
     private fun EventChangeListener() {
         val userCollectionRef = db.collection("Users")
 
