@@ -24,6 +24,7 @@ class ProductFragment : Fragment() {
     private lateinit var precio: TextView
     private lateinit var category: TextView
     private lateinit var charact1: TextView
+    private lateinit var description: TextView
     private lateinit var charact2: TextView
     private lateinit var charact3: TextView
     private lateinit var productID: String
@@ -62,12 +63,14 @@ class ProductFragment : Fragment() {
         charact1 = binding.charact1Product
         charact2 = binding.charact2Product
         charact3 = binding.charact3Product
+        description = binding.textProduct
 
         documentRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 productName.setText(documentSnapshot.getString("Name"))
                 Picasso.get().load(documentSnapshot.getString("Img")).into(imagen)
                 precio.setText(documentSnapshot.getString("Price"))
+                description.setText(documentSnapshot.getString("Description"))
                 category.setText(documentSnapshot.getString("Category"))
                 charact1.setText(documentSnapshot.getString("Charact1"))
                 charact2.setText(documentSnapshot.getString("Charact2"))

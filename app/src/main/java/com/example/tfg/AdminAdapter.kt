@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +32,14 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+
+
+
+
+
+
         fun bind(user: Users) {
             val cardView: CardView = itemView.findViewById(R.id.userCard)
             val idUser: TextView = itemView.findViewById(R.id.idUser)
@@ -41,7 +51,6 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
 
 
 
-
             idUser.text = user.Id
             lastNameUser.text = user.lastName
             nombreUser.text = user.firstName
@@ -50,7 +59,6 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
 
             deletebtn.setOnClickListener {
                 val userRef = FirebaseFirestore.getInstance().collection("Users").document(user.Id)
-                val auth = FirebaseAuth.getInstance()
                 userRef.delete().addOnSuccessListener {
                     Toast.makeText(
                         deletebtn.context,
@@ -71,8 +79,6 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
             cardView.setOnClickListener{
                 onClick(user)
             }
-
-
         }
     }
 }

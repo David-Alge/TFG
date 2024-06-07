@@ -1,19 +1,16 @@
 package com.example.tfg
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,10 +24,11 @@ class CartFragment : Fragment() {
     private lateinit var txtEmpty: TextView
     private lateinit var productsArrayList: ArrayList<Products>
     private lateinit var myAdapter: CartAdapter
-    private lateinit var db:FirebaseFirestore
-    private lateinit var btnEmpty:Button
-    private lateinit var btnBuy:Button
+    private lateinit var db: FirebaseFirestore
+    private lateinit var btnEmpty: Button
+    private lateinit var btnBuy: Button
     private lateinit var txtTotal: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,36 +41,38 @@ class CartFragment : Fragment() {
         actionBarDrawerToggle?.setDrawerIndicatorEnabled(false)
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseFirestore.getInstance()
-        recyclerView = view.findViewById<RecyclerView>(R.id.ListaProductos)
-        txtEmpty = view.findViewById<TextView>(R.id.txtEmpty)
-        txtTotal = view.findViewById<TextView>(R.id.txtTotal)
-        btnEmpty = view.findViewById<Button>(R.id.btnEmptyCart)
-        btnBuy = view.findViewById<Button>(R.id.btnBuy)
+        recyclerView = view.findViewById(R.id.ListaProductos)
+        txtEmpty = view.findViewById(R.id.txtEmpty)
+        txtTotal = view.findViewById(R.id.txtTotal)
+        btnEmpty = view.findViewById(R.id.btnEmptyCart)
+        btnBuy = view.findViewById(R.id.btnBuy)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
         productsArrayList = arrayListOf()
-        myAdapter = CartAdapter(productsArrayList)
+        myAdapter = CartAdapter(productsArrayList) { totalPrice ->
+            txtTotal.text = "Total: ${totalPrice}€"
+        }
         recyclerView.adapter = myAdapter
         EventChangeListener()
 
-
-        val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
+        val imgbtnSalir = view.findViewById<ImageView>(R.id.imgbtnSalir)
         imgbtnSalir?.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, LoginFragment()).commit()
         }
 
-        btnEmpty?.setOnClickListener {
+        btnEmpty.setOnClickListener {
             deleteAllItems()
-            txtTotal.text="Total:0€"
+            txtTotal.text = "Total: 0€"
         }
 
-        btnBuy?.setOnClickListener {
+        btnBuy.setOnClickListener {
             deleteAllItems()
-            txtTotal.text="Total:0€"
+            txtTotal.text = "Total: 0€"
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -92,9 +92,8 @@ class CartFragment : Fragment() {
             }
         })
         itemTouchHelper.attachToRecyclerView(recyclerView)
-
-
     }
+
     private fun deleteAllItems() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
@@ -112,7 +111,6 @@ class CartFragment : Fragment() {
                             productsArrayList.clear()
                             myAdapter.notifyDataSetChanged()
                             txtTotal.text = "Total: 0€"
-
                         }
                         .addOnFailureListener { e ->
                             Log.e("Firestore Error", "Error deleting document: ${e.message}")
@@ -121,6 +119,7 @@ class CartFragment : Fragment() {
                 requireView().invalidate()
             }
     }
+
     private fun DeleteItem(productName: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val collectionRef = db.collection("Users").document(userId).collection("Cart$userId")
@@ -141,22 +140,20 @@ class CartFragment : Fragment() {
             }
     }
 
-    fun sumarPrecios():Int {
+    private fun sumarPrecios(): Int {
         var suma = 0
         for (product in productsArrayList) {
             val precioString = product.Price
             val precioNumerico = precioString.substring(0, precioString.length - 1)
             suma += precioNumerico.toInt()
-
         }
         Log.d("Firestore", "suma del carrito '$suma'")
         return suma
     }
 
-
     private fun EventChangeListener() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart"+userId.toString())
+        val cartCollectionRef = db.collection("Users").document(userId.toString()).collection("Cart" + userId.toString())
 
         cartCollectionRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -177,8 +174,7 @@ class CartFragment : Fragment() {
                             }
                         }
                         myAdapter.notifyDataSetChanged()
-                        txtTotal.text="Total: "+sumarPrecios().toString()+"€"
-
+                        txtTotal.text = "Total: " + sumarPrecios().toString() + "€"
                     }
                 } else {
                     recyclerView.visibility = View.GONE
@@ -186,7 +182,5 @@ class CartFragment : Fragment() {
                 }
             }
         }
-
     }
-
 }

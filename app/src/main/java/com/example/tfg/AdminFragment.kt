@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +51,7 @@ class AdminFragment : Fragment() {
         val actionBarDrawerToggle = mainActivity.getDrawerToggle()
         actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
 
+
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
 
@@ -67,7 +70,6 @@ class AdminFragment : Fragment() {
                 fragment.arguments = bundle
                 it.supportFragmentManager.beginTransaction().addToBackStack(null)
                     .replace(R.id.mainContainer, fragment).commit()
-
             }
         }
         recyclerView.adapter = myAdapter
