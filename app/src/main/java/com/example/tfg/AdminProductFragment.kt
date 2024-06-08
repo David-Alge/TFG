@@ -6,42 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tfg.databinding.FragmentAdminBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.tfg.databinding.FragmentAdminProductBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.math.log
 
-class AdminFragment : Fragment() {
 
+class AdminProductFragment : Fragment() {
+    private lateinit var binding: FragmentAdminProductBinding
     private lateinit var db: FirebaseFirestore
-    private lateinit var binding: FragmentAdminBinding
+    private lateinit var productsArrayList: ArrayList<Products>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var usersArrayList: ArrayList<Users>
-    private lateinit var myAdapter: AdminAdapter
+    private lateinit var myAdapter: AdminProductAdapter
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // Inflar el diseño del fragmento
-        binding = FragmentAdminBinding.inflate(inflater, container, false)
+        binding = FragmentAdminProductBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Inicializar el Toolbar
 
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.VISIBLE
@@ -49,70 +39,48 @@ class AdminFragment : Fragment() {
         val actionBarDrawerToggle = mainActivity.getDrawerToggle()
         actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
 
-
-        // Inicializar Firestore
         db = FirebaseFirestore.getInstance()
 
-        // Inicializar la lista de usuarios y el RecyclerView
-        usersArrayList = ArrayList()
-        recyclerView = binding.ListaUsers
+        productsArrayList = ArrayList()
+        recyclerView = binding.ListaProducts
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
-        myAdapter = AdminAdapter(usersArrayList) {user ->
+
+        myAdapter = AdminProductAdapter(productsArrayList){products ->
             activity?.let {
-                val fragment = UserFragment()
+                val fragment = ProductAdminFragment()
                 val bundle = Bundle()
 
-                bundle.putString("id", user.Id)
-                Log.d("id", user.Id)
+                bundle.putString("id", products.Id)
+                Log.d("id", products.Id)
                 fragment.arguments = bundle
                 it.supportFragmentManager.beginTransaction().addToBackStack(null)
                     .replace(R.id.mainContainer, fragment).commit()
             }
+
         }
         recyclerView.adapter = myAdapter
-
-        // Escuchar cambios en Firestore
         EventChangeListener()
 
-        // Inicializar el botón de salir
-        val imgbtnSalir = view?.findViewById<ImageView>(R.id.imgbtnSalir)
-        imgbtnSalir?.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, LoginFragment()).commit()
-        }
-
-        val productbtn = binding.Productsbtn
-
-        productbtn?.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, AdminProductFragment()).commit()
-        }
-
-        val addbtn = binding.addUserbtn
-        addbtn?.setOnClickListener{
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, AddUserFragment()).commit()
-        }
     }
     private fun EventChangeListener() {
-        val userCollectionRef = db.collection("Users")
+        val productsCollectionRef = db.collection("Products")
 
-        userCollectionRef.get().addOnCompleteListener { task ->
+        productsCollectionRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val querySnapshot = task.result
                 if (querySnapshot != null && !querySnapshot.isEmpty) {
                     recyclerView.visibility = View.VISIBLE
-                    userCollectionRef.addSnapshotListener { value, error ->
+                    productsCollectionRef.addSnapshotListener { value, error ->
                         if (error != null) {
                             Log.e("Firestore Error", error.message.toString())
                             return@addSnapshotListener
                         }
                         for (dc in value?.documentChanges!!) {
                             if (dc.type == DocumentChange.Type.ADDED) {
-                                val user = dc.document.toObject(Users::class.java)
-                                Log.d("Firestore Data", "${user.firstName}")
-                                usersArrayList.add(user)
+                                val product = dc.document.toObject(Products::class.java)
+                                Log.d("Firestore Data", "${product.Name}")
+                                productsArrayList.add(product)
                             }
                         }
                         myAdapter.notifyDataSetChanged()
@@ -123,4 +91,5 @@ class AdminFragment : Fragment() {
             }
         }
     }
+
 }

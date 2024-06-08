@@ -32,14 +32,6 @@ class AdminAdapter(private val usersList: ArrayList<Users>, val onClick: (Users)
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-
-
-
-
-
-
-
         fun bind(user: Users) {
             val cardView: CardView = itemView.findViewById(R.id.userCard)
             val idUser: TextView = itemView.findViewById(R.id.idUser)

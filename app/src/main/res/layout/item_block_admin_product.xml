@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clickable="true"
+    android:layout_margin="10dp"
+    android:id="@+id/product_Admin_Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/idProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IdProduct"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/Name_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/Charact1_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Charact1"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/Charact2_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Charact2"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/Charact3_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Charact3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:id="@+id/Price_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="160sp"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:layout_marginLeft="200sp"
+                android:id="@+id/btndeleteUser"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

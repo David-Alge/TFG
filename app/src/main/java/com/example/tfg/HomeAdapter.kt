@@ -75,6 +75,7 @@ class HomeAdapter(private val productsList: ArrayList<Products>, val onClick: (P
             } else {
                 Imagen.setImageResource(R.drawable.ic_android_black_24dp)
             }
+
             btnAdd.setOnClickListener {
                 productRef.get().addOnSuccessListener { document ->
                     if (document != null) {
