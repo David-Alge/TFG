@@ -12,24 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
- class AdminProductAdapter(private val productsList: ArrayList<Products>, val onClick: (Products) -> Unit)
+ class AdminProductAdapter(
+     private val productsList: ArrayList<Products>, val onClick: (Products) -> Unit)
     : RecyclerView.Adapter<AdminProductAdapter.MyViewHolder>()  {
-
-
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminProductAdapter.MyViewHolder {
          val itemView =
              LayoutInflater.from(parent.context).inflate(R.layout.item_block_admin_product, parent, false)
          return MyViewHolder(itemView)
      }
 
-     override fun onBindViewHolder(holder: AdminProductAdapter.MyViewHolder, position: Int) {
+     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(productsList[position])
      }
 
      override fun getItemCount(): Int {
          return productsList.size
      }
-     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
+     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
          fun bind(products: Products) {
 
              val cardView: CardView = itemView.findViewById(R.id.product_Admin_Card)
@@ -47,12 +46,26 @@ import com.google.firebase.firestore.FirebaseFirestore
              Charact3.text = products.Charact3
              Precio.text = products.Price
 
-             cardView.setOnClickListener {
+             val deletebtn: Button = itemView.findViewById(R.id.btndeleteProduct)
 
+             deletebtn.setOnClickListener{
+                 val prodRef = FirebaseFirestore.getInstance().collection("Products").document(products.Id)
+                 prodRef.delete().addOnSuccessListener {
+                     Toast.makeText(deletebtn.context, "Product ${products.Name} deleted", Toast.LENGTH_SHORT).show()
+                     productsList.removeAt(adapterPosition)
+                     notifyItemRemoved(adapterPosition)
+                 }.addOnFailureListener { e ->
+                     Toast.makeText(
+                         deletebtn.context,
+                         "Error deleting product: ${e.message}",
+                         Toast.LENGTH_SHORT
+                     ).show()
+                 }
              }
-
+             cardView.setOnClickListener {
+                 onClick(products)
+             }
          }
-
      }
 
  }

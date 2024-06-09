@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Delete"
                 android:layout_marginLeft="200sp"
-                android:id="@+id/btndeleteUser"
+                android:id="@+id/btndeleteProduct"
                 />
         </LinearLayout>
     </LinearLayout>

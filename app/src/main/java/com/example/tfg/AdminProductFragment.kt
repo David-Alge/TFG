@@ -62,6 +62,14 @@ class AdminProductFragment : Fragment() {
         recyclerView.adapter = myAdapter
         EventChangeListener()
 
+
+        val userbtn = binding.Usersbtn
+
+        userbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, AdminFragment()).commit()
+        }
+
     }
     private fun EventChangeListener() {
         val productsCollectionRef = db.collection("Products")
