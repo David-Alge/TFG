@@ -6,18 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tfg.databinding.FragmentAdminBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.math.log
 
 class AdminFragment : Fragment() {
 
@@ -86,7 +81,7 @@ class AdminFragment : Fragment() {
 
         productbtn?.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, AdminProductFragment()).commit()
+                .replace(R.id.mainContainer, AdminProductsFragment()).commit()
         }
 
         val addbtn = binding.addUserbtn

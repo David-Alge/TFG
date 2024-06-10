@@ -14,19 +14,18 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class AdminProductFragment : Fragment() {
+class AdminProductsFragment : Fragment() {
     private lateinit var binding: FragmentAdminProductBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var productsArrayList: ArrayList<Products>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var myAdapter: AdminProductAdapter
-
+    private lateinit var myAdapter: AdminProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAdminProductBinding.inflate(inflater,container,false)
+        binding = FragmentAdminProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,9 +45,9 @@ class AdminProductFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
 
-        myAdapter = AdminProductAdapter(productsArrayList){products ->
+        myAdapter = AdminProductsAdapter(productsArrayList) { products ->
             activity?.let {
-                val fragment = ProductAdminFragment()
+                val fragment = ProductModifyFragment()
                 val bundle = Bundle()
 
                 bundle.putString("id", products.Id)
@@ -71,6 +70,7 @@ class AdminProductFragment : Fragment() {
         }
 
     }
+
     private fun EventChangeListener() {
         val productsCollectionRef = db.collection("Products")
 
@@ -99,5 +99,4 @@ class AdminProductFragment : Fragment() {
             }
         }
     }
-
 }
