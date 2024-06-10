@@ -6,18 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.example.tfg.databinding.FragmentAdminProductBinding
+import com.example.tfg.databinding.FragmentAddProductBinding
 import com.example.tfg.databinding.FragmentProductAdminBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class ProductModifyFragment : Fragment() {
+class AddProductFragment : Fragment() {
     private lateinit var productID: String
-    private lateinit var binding: FragmentProductAdminBinding
+    private lateinit var binding: FragmentAddProductBinding
     private lateinit var Id: TextInputEditText
     private lateinit var Name: TextInputEditText
     private lateinit var Charact1: TextInputEditText
@@ -32,10 +30,8 @@ class ProductModifyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        productID = arguments?.getString("id").toString()
-
         // Inflate the layout for this fragment
-        binding = FragmentProductAdminBinding.inflate(inflater, container, false)
+        binding = FragmentAddProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,8 +49,19 @@ class ProductModifyFragment : Fragment() {
         Description = binding.txtDescription
         Image = binding.txtImage
 
-        binding.btnModify.setOnClickListener{
-            if (Id.text?.isNotEmpty()!!){
+        documentRef.get().addOnSuccessListener { documentSnapshot ->
+            Id.setHint(documentSnapshot.getString("Id"))
+            Name.setHint(documentSnapshot.getString("Name"))
+            Charact1.setHint(documentSnapshot.getString("Charact1"))
+            Charact2.setHint(documentSnapshot.getString("Charact2"))
+            Charact3.setHint(documentSnapshot.getString("Charact3"))
+            Price.setHint(documentSnapshot.getString("Price"))
+            Description.setHint(documentSnapshot.getString("Description"))
+            Image.setHint(documentSnapshot.getString("Img"))
+        }
+
+        binding.btnAdd.setOnClickListener{
+            if (Id.text?.isNotEmpty() == true && Name.text?.isNotEmpty() == true){
                 val IdUpdate = Id.text.toString()
                 documentRef.update("Id",IdUpdate)
                 Log.d("Id",IdUpdate)
@@ -107,6 +114,5 @@ class ProductModifyFragment : Fragment() {
                 transaccion.commit()
             }
     }
-
 
 }

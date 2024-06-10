@@ -32,7 +32,7 @@ class BottomEmailFragment : BottomSheetDialogFragment() {
             taskViewModel.string.value = binding.email.text.toString()
             if (binding.email.text.toString().equals(binding.email2.text.toString()) ){
                 currentUser?.updateEmail(binding.email.text.toString())
-                documento.update("email", binding.email.text.toString())
+                documento.update("email", userId.toString())
                 Toast.makeText(requireContext(), "Email Updated", Toast.LENGTH_SHORT).show()
                 FirebaseAuth.getInstance().signOut();
                 requireActivity().supportFragmentManager.beginTransaction()
