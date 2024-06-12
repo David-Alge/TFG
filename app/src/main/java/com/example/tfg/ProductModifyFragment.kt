@@ -13,6 +13,7 @@ import com.example.tfg.databinding.FragmentAdminProductBinding
 import com.example.tfg.databinding.FragmentProductAdminBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale.Category
 
 
 class ProductModifyFragment : Fragment() {
@@ -26,6 +27,7 @@ class ProductModifyFragment : Fragment() {
     private lateinit var Price: TextInputEditText
     private lateinit var Description: TextInputEditText
     private lateinit var Image: TextInputEditText
+    private lateinit var Category: TextInputEditText
 
 
     override fun onCreateView(
@@ -46,12 +48,25 @@ class ProductModifyFragment : Fragment() {
 
         Id = binding.txIdProduct
         Name = binding.txtName
+        Category = binding.txtCategoryProduct
         Charact1 = binding.txtCharact1
         Charact2 = binding.txtCharact2
         Charact3 = binding.txtCharact3
         Price = binding.txtPrice
         Description = binding.txtDescription
         Image = binding.txtImage
+
+        documentRef.get().addOnSuccessListener { documentSnapshot ->
+            Id.setHint(documentSnapshot.getString("Id"))
+            Name.setHint(documentSnapshot.getString("Name"))
+            Category.setHint(documentSnapshot.getString("Category"))
+            Charact1.setHint(documentSnapshot.getString("Charact1"))
+            Charact2.setHint(documentSnapshot.getString("Charact2"))
+            Charact3.setHint(documentSnapshot.getString("Charact3"))
+            Price.setHint(documentSnapshot.getString("Price"))
+            Description.setHint(documentSnapshot.getString("Description"))
+            Image.setHint(documentSnapshot.getString("Img"))
+        }
 
         binding.btnModify.setOnClickListener{
             if (Id.text?.isNotEmpty()!!){
@@ -63,6 +78,11 @@ class ProductModifyFragment : Fragment() {
                 val NameUpdate = Name.text.toString()
                 documentRef.update("Name",NameUpdate)
                 Log.d("Name",NameUpdate)
+            }
+            if (Category.text?.isNotEmpty()!!){
+                val CategoryUpdate = Category.text.toString()
+                documentRef.update("Category",CategoryUpdate)
+                Log.d("Category",CategoryUpdate)
             }
             if (Charact1.text?.isNotEmpty()!!){
                 val Charact1Update = Charact1.text.toString()
@@ -94,7 +114,7 @@ class ProductModifyFragment : Fragment() {
                 documentRef.update("Img",ImageUpdate)
                 Log.d("Img",ImageUpdate)
             }
-            Toast.makeText(requireActivity() , "User modified", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity() , "Product modified", Toast.LENGTH_LONG).show();
             val transaccion = requireActivity().supportFragmentManager.beginTransaction()
             transaccion.replace(R.id.mainContainer, AdminProductsFragment())
             transaccion.commit()
