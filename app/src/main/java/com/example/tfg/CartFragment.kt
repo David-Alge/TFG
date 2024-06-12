@@ -67,11 +67,17 @@ class CartFragment : Fragment() {
 
         btnEmpty.setOnClickListener {
             deleteAllItems()
+            Toast.makeText(requireContext(),
+                "All elements have been eliminated", Toast.LENGTH_SHORT
+            ).show()
             txtTotal.text = "Total: 0€"
         }
 
         btnBuy.setOnClickListener {
             deleteAllItems()
+            Toast.makeText(requireContext(),
+                "Enjoy your buy", Toast.LENGTH_SHORT
+            ).show()
             txtTotal.text = "Total: 0€"
         }
 
@@ -105,9 +111,6 @@ class CartFragment : Fragment() {
                     val documentRef = collectionRef.document(productId)
                     documentRef.delete()
                         .addOnSuccessListener {
-                            Toast.makeText(requireContext(),
-                                "All elements have been eliminated", Toast.LENGTH_SHORT
-                            ).show()
                             productsArrayList.clear()
                             myAdapter.notifyDataSetChanged()
                             txtTotal.text = "Total: 0€"
