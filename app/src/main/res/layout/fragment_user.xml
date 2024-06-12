@@ -50,7 +50,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLastnameLayout"
-        android:layout_above="@+id/txtEmailLayout"
+        android:layout_above="@+id/txtAddresLayout"
         android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -64,20 +64,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="Addres"
         android:textColor="@color/black"
         android:layout_marginTop="330dp"
         android:layout_marginLeft="30dp"
         />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtEmailLayout"
+        android:id="@+id/txtAddresLayout"
         android:layout_centerInParent="true"
         android:layout_margin="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtAddres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -86,27 +86,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Address"
+        android:text="Email"
         android:textColor="@color/black"
         android:layout_marginTop="425dp"
         android:layout_marginLeft="30dp"
         />
 
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtAddresLayout"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_margin="20sp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEmailLayout">
+        android:text="EmailUser"
+        android:id="@+id/txtEmail"
+        android:textColor="@color/black"
+        android:layout_marginTop="455dp"
+        android:layout_marginLeft="30dp"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtAddres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:layout_width="match_parent"

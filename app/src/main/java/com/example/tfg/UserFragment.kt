@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.example.tfg.databinding.FragmentProductBinding
 import com.example.tfg.databinding.FragmentUserBinding
@@ -20,8 +21,8 @@ class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private lateinit var fName: TextInputEditText
     private lateinit var lName: TextInputEditText
+    private lateinit var email: TextView
     private lateinit var address: TextInputEditText
-    private lateinit var email: TextInputEditText
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,14 +42,14 @@ class UserFragment : Fragment() {
 
         fName = binding.txtFirstname
         lName = binding.txtLastname
-        address= binding.txtAddres
         email=binding.txtEmail
+        address= binding.txtAddres
 
         documentRef.get().addOnSuccessListener { documentSnapshot ->
             fName.setHint(documentSnapshot.getString("firstName"))
             lName.setHint(documentSnapshot.getString("lastName"))
-            address.setHint(documentSnapshot.getString("email"))
-            email.setHint(documentSnapshot.getString("address"))
+            email.setText(documentSnapshot.getString("email"))
+            address.setHint(documentSnapshot.getString("address"))
         }
 
         binding.btnModify.setOnClickListener{
@@ -62,11 +63,7 @@ class UserFragment : Fragment() {
                 documentRef.update("lastName",lNameUpdate)
                 Log.d("lNameUpdate",lNameUpdate)
             }
-            if (address.text?.isNotEmpty()!!){
-                val addressUpdate = address.text.toString()
-                documentRef.update("address",addressUpdate)
-                Log.d("addressUpdate",addressUpdate)
-            }
+
             if (email.text?.isNotEmpty()!!){
                 val emailUpdate = email.text.toString()
                 documentRef.update("email",emailUpdate)
