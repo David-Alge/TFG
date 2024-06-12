@@ -77,7 +77,7 @@ class AddProductFragment : Fragment() {
                     "Charact3" to Charact3.text.toString(),
                     "Price" to Price.text.toString(),
                     "Description" to Description.text.toString(),
-                    "Image" to Image.text.toString(),
+                    "Img" to Image.text.toString(),
                     "Category" to Category.text.toString()
 
                 )
@@ -99,7 +99,7 @@ class AddProductFragment : Fragment() {
                     }
             }
 
-            Toast.makeText(requireActivity() , "User modified", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity() , "Product added", Toast.LENGTH_LONG).show();
             val transaccion = requireActivity().supportFragmentManager.beginTransaction()
             transaccion.replace(R.id.mainContainer, AdminProductsFragment())
             transaccion.commit()
