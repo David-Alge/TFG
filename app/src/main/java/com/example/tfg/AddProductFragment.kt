@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.tfg.databinding.FragmentAddProductBinding
-import com.example.tfg.databinding.FragmentProductAdminBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,21 +23,36 @@ class AddProductFragment : Fragment() {
     private lateinit var Price: TextInputEditText
     private lateinit var Description: TextInputEditText
     private lateinit var Image: TextInputEditText
+    private lateinit var Category: TextInputEditText
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         binding = FragmentAddProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    private fun clearCamps() {
+        Id.setText("")
+        Name.setText("")
+        Charact1.setText("")
+        Charact2.setText("")
+        Charact3.setText("")
+        Price.setText("")
+        Description.setText("")
+        Image.setText("")
+        Category.setText("")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val db = FirebaseFirestore.getInstance()
-        val documentRef = db.collection("Products").document("$productID")
+
 
         Id = binding.txIdProduct
         Name = binding.txtName
@@ -48,59 +62,43 @@ class AddProductFragment : Fragment() {
         Price = binding.txtPrice
         Description = binding.txtDescription
         Image = binding.txtImage
+        Category = binding.txtCategoryProduct
 
-        documentRef.get().addOnSuccessListener { documentSnapshot ->
-            Id.setHint(documentSnapshot.getString("Id"))
-            Name.setHint(documentSnapshot.getString("Name"))
-            Charact1.setHint(documentSnapshot.getString("Charact1"))
-            Charact2.setHint(documentSnapshot.getString("Charact2"))
-            Charact3.setHint(documentSnapshot.getString("Charact3"))
-            Price.setHint(documentSnapshot.getString("Price"))
-            Description.setHint(documentSnapshot.getString("Description"))
-            Image.setHint(documentSnapshot.getString("Img"))
-        }
+
 
         binding.btnAdd.setOnClickListener{
-            if (Id.text?.isNotEmpty() == true && Name.text?.isNotEmpty() == true){
-                val IdUpdate = Id.text.toString()
-                documentRef.update("Id",IdUpdate)
-                Log.d("Id",IdUpdate)
+            if (Id.text?.isNotEmpty() == true && Name.text?.isNotEmpty() == true && Charact1.text?.isNotEmpty() == true
+                && Charact2.text?.isNotEmpty() == true && Charact3.text?.isNotEmpty() == true && Price.text?.isNotEmpty() == true && Description.text?.isNotEmpty() == true && Image.text?.isNotEmpty() == true){
+                val productData = hashMapOf(
+                    "Id" to Id.text.toString(),
+                    "Name" to Name.text.toString(),
+                    "Charact1" to Charact1.text.toString(),
+                    "Charact2" to Charact2.text.toString(),
+                    "Charact3" to Charact3.text.toString(),
+                    "Price" to Price.text.toString(),
+                    "Description" to Description.text.toString(),
+                    "Image" to Image.text.toString(),
+                    "Category" to Category.text.toString()
+
+                )
+                val idProduct = Id.text.toString()
+                val documentRef = db.collection("Products").document(idProduct)
+                documentRef.set(productData).addOnSuccessListener {
+                    if (isAdded) { // Verificar si el fragmento está adjunto
+                        Toast.makeText(requireActivity(), "Product added", Toast.LENGTH_LONG).show()
+                        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.mainContainer, AdminProductsFragment())
+                        transaction.commit()
+                        clearCamps()
+                    }
+
+                }
+                    .addOnFailureListener { e ->
+                        Log.e("register", "Error al crear el documento de usuario", e)
+                        Toast.makeText(requireContext(), "Error creating user", Toast.LENGTH_LONG).show()
+                    }
             }
-            if (Name.text?.isNotEmpty()!!){
-                val NameUpdate = Name.text.toString()
-                documentRef.update("Name",NameUpdate)
-                Log.d("Name",NameUpdate)
-            }
-            if (Charact1.text?.isNotEmpty()!!){
-                val Charact1Update = Charact1.text.toString()
-                documentRef.update("Charact1",Charact1Update)
-                Log.d("Charact1",Charact1Update)
-            }
-            if (Charact2.text?.isNotEmpty()!!){
-                val Charact2Update = Charact2.text.toString()
-                documentRef.update("Charact2",Charact2Update)
-                Log.d("Charact2",Charact2Update)
-            }
-            if (Charact3.text?.isNotEmpty()!!){
-                val Charact3Update = Charact3.text.toString()
-                documentRef.update("Charact3",Charact3Update)
-                Log.d("Charact3",Charact3Update)
-            }
-            if (Price.text?.isNotEmpty()!!){
-                val PriceUpdate = Price.text.toString()
-                documentRef.update("Price",PriceUpdate)
-                Log.d("Price",PriceUpdate)
-            }
-            if (Description.text?.isNotEmpty()!!){
-                val DescriptionUpdate = Description.text.toString()
-                documentRef.update("Description",DescriptionUpdate)
-                Log.d("Description",DescriptionUpdate)
-            }
-            if (Image.text?.isNotEmpty()!!){
-                val ImageUpdate = Image.text.toString()
-                documentRef.update("Img",ImageUpdate)
-                Log.d("Img",ImageUpdate)
-            }
+
             Toast.makeText(requireActivity() , "User modified", Toast.LENGTH_LONG).show();
             val transaccion = requireActivity().supportFragmentManager.beginTransaction()
             transaccion.replace(R.id.mainContainer, AdminProductsFragment())
@@ -113,6 +111,7 @@ class AddProductFragment : Fragment() {
                 transaccion.replace(R.id.mainContainer, AdminProductsFragment())
                 transaccion.commit()
             }
+
     }
 
 }

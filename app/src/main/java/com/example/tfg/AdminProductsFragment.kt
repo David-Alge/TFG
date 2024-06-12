@@ -68,6 +68,13 @@ class AdminProductsFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, AdminFragment()).commit()
         }
+
+        val addbtn = binding.addProductbtn
+
+        addbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, AddProductFragment()).commit()
+        }
     }
     private fun EventChangeListener() {
         val productsCollectionRef = db.collection("Products")
